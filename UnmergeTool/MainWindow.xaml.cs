@@ -220,7 +220,7 @@ namespace UnmergeTool
 
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
         {
-            string targetURL = "https://github.com/VladTheJunior/Resource-Manager";
+            string targetURL = "https://github.com/VladTheJunior/UnmergeTool";
             var psi = new ProcessStartInfo
             {
                 FileName = targetURL,
