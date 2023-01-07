@@ -1,4 +1,27 @@
-# UnmergeTool
+![ViewCount](https://views.whatilearened.today/views/github/VladTheJunior/UnmergeTool.svg)
+[![GitHub stars](https://img.shields.io/github/stars/VladTheJunior/UnmergeTool)](https://github.com/VladTheJunior/UnmergeTool/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/VladTheJunior/UnmergeTool)](https://github.com/VladTheJunior/UnmergeTool/network)
+[![GitHub issues](https://img.shields.io/github/issues/VladTheJunior/UnmergeTool)](https://github.com/VladTheJunior/UnmergeTool/issues)
+[![GitHub license](https://img.shields.io/github/license/VladTheJunior/UnmergeTool)](https://github.com/VladTheJunior/UnmergeTool/blob/master/LICENSE)
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/VladTheJunior/UnmergeTool">
+    <img src="Images/Icon.png" alt="Logo">
+  </a>
+</p>
+
+# Unmerge Tool
+
+*Утилита для распаковки merge прошивок Bitmain Upgrades .BMU*
+
+**Developer:** VladTheJunior<br />
+**Current version:** 0.0.1<br />
+
+[Download Portable (.ZIP archive)]()<br />
+
+*__Note__: Portable version may require .NET6 desktop runtime: https://dotnet.microsoft.com/en-us/download/dotnet/6.0*
+
 
 Объединенные (merge) прошивки содержат прошивки для определенной модели устройства с разными типами контрольных плат. Названия таких прошивок выглядят примерно так: __Antminer-S19-merge-release-20211216091201-8IN1__. 
 
