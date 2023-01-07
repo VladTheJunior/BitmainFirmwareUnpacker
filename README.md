@@ -7,7 +7,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/VladTheJunior/UnmergeTool">
-    <img src="Images/Icon.png" alt="Logo">
+    <img src="Images/Icon.png" alt="Logo" Width="192px" align="left">
   </a>
 </p>
 
