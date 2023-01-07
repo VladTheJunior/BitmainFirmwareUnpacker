@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>True</UseWindowsForms>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <Title>Unmerge Tool</Title>
+    <Version>0.0.1</Version>
+    <Authors>VladTheJunior</Authors>
+    <Product>Unmerge Tool</Product>
+    <Copyright>VladTheJunior</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="K4os.Hash.xxHash" Version="1.0.8" />
+  </ItemGroup>
+
+</Project>
