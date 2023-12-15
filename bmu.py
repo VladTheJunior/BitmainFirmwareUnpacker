@@ -6,7 +6,7 @@ from Crypto.Signature import PKCS1_v1_5
 from Crypto.Hash import SHA256
 import argparse
 from tabulate import tabulate
-
+from farmhash import Fingerprint64
 
 
           
@@ -58,7 +58,7 @@ def unpack_single(file):
         header_data = file.read(2048)
         magic = header_data[0]
         print("\nHeader:\n")
-        print(f"magic: {magic}")
+        print(f"magic: {magic:x}")
         if magic != 38:
             print('Not valid BMU file')
             return            
@@ -133,6 +133,7 @@ def unpack_single(file):
 
         print(tabulate(files, headers=('#', 'Code', 'Name', 'Offset', 'Size')))
         print()
+        
         sig_files = []
         print("Extracting file signatures...")
         for i in range(0, file_count):
@@ -148,11 +149,21 @@ def unpack_single(file):
             check.extend(c)
         print(tabulate(sig_files, headers=('#', 'Code', 'Name', 'Offset', 'Size')))
         print()
-
-
-        count = (file_count << 6) + 32     
         miner_pem_key = RSA.importKey(miner_pem) 
         signer = PKCS1_v1_5.new(miner_pem_key)
+        print("Verifying files...")
+        for i in range(0, file_count):
+            file.seek(files[i][3])
+            digest = SHA256.new()
+            digest.update(file.read(files[i][4])) 
+            file.seek(sig_files[i][3])
+            signature = file.read(256)
+            is_file_verified = signer.verify(digest, signature)
+            print(f"{files[i][2]} verification passed: {is_file_verified}")
+        print()
+
+        count = (file_count << 6) + 32     
+
         digest = SHA256.new()
         digest.update(check[:count])   
 
@@ -182,13 +193,13 @@ def unpack_merge(file):
         'IIIIIIIII', header)
 
     print("\nHeader:\n")
-    print(f"magic: {hex(magic)}")
-    print(f"version: {hex(version)}")
-    print(f"header size: {hex(header_size)}")
-    print(f"item count: {hex(item_count)}")
-    print(f"item size: {hex(item_size)}")
-    print(f"data offset: {hex(data_offset)}")
-    print(f"crc32: {hex(crc32)}")
+    print(f"magic: {magic:x}")
+    print(f"version: {version}")
+    print(f"header size: {header_size}")
+    print(f"item count: {item_count}")
+    print(f"item size: {item_size}")
+    print(f"data offset: {data_offset}")
+    print(f"crc32: {crc32:x}")
     print(f"reserve0: {hex(reserve0)}")
     print(f"reserve1: {hex(reserve1)}")
     print()
@@ -224,8 +235,8 @@ def unpack_merge(file):
 
         with open(firmware_name, 'wb') as firmware_file:
             firmware_file.write(data)
-        crc = hex(binascii.crc32(data))
-        result.append((model[:model_length].decode("utf-8"), hardware[:hardware_length].decode("utf-8") ,chip[:chip_length].decode("utf-8"), filename[:filename_length].decode("utf-8") ,hex(offset),hex(size),crc))
+        crc = f'{binascii.crc32(data):x}'
+        result.append((model[:model_length].decode("utf-8"), hardware[:hardware_length].decode("utf-8") ,chip[:chip_length].decode("utf-8"), filename[:filename_length].decode("utf-8") ,offset,size,crc))
     print(tabulate(result, headers=('Model', 'Hardware', 'Chip', 'Name', 'Offset', 'Size', 'Checksum')))
 
 
@@ -247,12 +258,15 @@ def main():
     parser = argparse.ArgumentParser(description='Operations with BMU file (both single and merge)')
     subparsers = parser.add_subparsers(dest='operation', help='Available operations')
     unpack_parser = subparsers.add_parser('unpack', help='unpack bmu file')
+    hash_parser = subparsers.add_parser('hash', help='calculate miner type hash')
     unpack_parser.add_argument('file',  type=str)
-
+    hash_parser.add_argument('string',  type=str)
  
     args = parser.parse_args()
     if args.operation == 'unpack':
         unpack(args.file)
+    elif args.operation == "hash":
+        print(f"Miner type hash[{args.string}]: {Fingerprint64(args.string):x}")
     else:
         parser.print_help()
 
