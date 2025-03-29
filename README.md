@@ -2,9 +2,6 @@
 [![GitHub stars](https://img.shields.io/github/stars/VladTheJunior/BitmainFirmwareUnpacker)](https://github.com/VladTheJunior/BitmainFirmwareUnpacker/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/VladTheJunior/BitmainFirmwareUnpacker)](https://github.com/VladTheJunior/BitmainFirmwareUnpacker/network)
 
-# GUI Version available in Pumpkin Project tool
-https://vladthejunior.github.io/pumpkin_project_web/
-
 
 # Bitmain Firmware Unpacker
 *Script to unpack Bitmain .BMU firmwares (both single and merge)*
